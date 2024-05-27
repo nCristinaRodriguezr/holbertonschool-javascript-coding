@@ -14,7 +14,5 @@ if (!filePath || !stringToWrite) {
 fs.writeFile(filePath, stringToWrite, { encoding: 'utf-8' }, (err) => {
   if (err) {
     console.error(err);
-  } else {
-    console.log('El contenido ha sido escrito exitosamente.');
   }
 });
