@@ -1,5 +1,5 @@
 #!/usr/bin/node
-const request = require('request');
+const https = require('https'); // Cambio: Usar el módulo 'https' en lugar de 'request'
 
 const apiUrl = process.argv[2];
 
@@ -8,29 +8,38 @@ if (!apiUrl) {
   process.exit(1);
 }
 
-request(apiUrl, (error, response, body) => {
-  if (error) {
-    console.error('Error making the request:', error);
-    return;
-  }
+https.get(apiUrl, (res) => { // Cambio: Usar https.get en lugar de request
+  let data = '';
 
-  const todos = JSON.parse(body);
-  const completedTasksByUser = {};
-
-  todos.forEach(todo => {
-    if (todo.completed) {
-      if (!completedTasksByUser[todo.userId]) {
-        completedTasksByUser[todo.userId] = 0;
-      }
-      completedTasksByUser[todo.userId]++;
-    }
+  res.on('data', (chunk) => {
+    data += chunk;
   });
 
-  // Convert completedTasksByUser to a JSON string
-  const jsonString = JSON.stringify(completedTasksByUser, null, 2);
+  res.on('end', () => {
+    try {
+      const todos = JSON.parse(data);
+      const completedTasksByUser = {};
 
-  // Replace double quotes with single quotes
-  const jsonStringWithSingleQuotes = jsonString.replace(/"(\d+)":/g, "'$1':");
+      todos.forEach((todo) => {
+        if (todo.completed) {
+          if (!completedTasksByUser[todo.userId]) {
+            completedTasksByUser[todo.userId] = 0;
+          }
+          completedTasksByUser[todo.userId]++;
+        }
+      });
 
-  console.log(jsonStringWithSingleQuotes);
+      // Convert completedTasksByUser to a JSON string
+      const jsonString = JSON.stringify(completedTasksByUser, null, 2);
+
+      // Replace double quotes with single quotes
+      const jsonStringWithSingleQuotes = jsonString.replace(/"(\d+)":/g, "'$1':");
+
+      console.log(jsonStringWithSingleQuotes);
+    } catch (error) {
+      console.error('Error parsing response:', error.message);
+    }
+  });
+}).on('error', (err) => {
+  console.error('Error making the request:', err.message);
 });
