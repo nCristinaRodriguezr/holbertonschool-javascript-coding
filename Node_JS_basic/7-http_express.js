@@ -26,7 +26,7 @@ app.get('/students', (req, res) => {
       res.send(responseText.trim());  // trim() para eliminar el último salto de línea
     })
     .catch(() => {
-      res.send('Cannot load the database');
+      res.send('This is the list of our students\nCannot load the database');
     });
 });
 
