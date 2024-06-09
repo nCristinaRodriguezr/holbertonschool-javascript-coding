@@ -33,8 +33,8 @@ function countStudents(path) {
 
         // Construir el resultado
         const result = {
-          totalStudents: totalStudents,
-          studentsByField: studentsByField
+          totalStudents,
+          studentsByField
         };
 
         // Imprimir el número total de estudiantes
