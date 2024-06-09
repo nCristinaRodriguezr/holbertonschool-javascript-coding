@@ -2,9 +2,8 @@ const http = require('http');
 
 // Crea el servidor
 const app = http.createServer((req, res) => {
-  // Configura la respuesta HTTP con el código de estado 200 (OK) y el tipo de contenido de texto plano
   res.writeHead(200, { 'Content-Type': 'text/plain' });
-  
+
   // Envía "Hello Holberton School!" como respuesta
   res.end('Hello Holberton School!');
 });
