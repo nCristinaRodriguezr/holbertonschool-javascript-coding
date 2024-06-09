@@ -1,25 +1,17 @@
-const readline = require('readline');
-
-// Crear una interfaz readline para la entrada y salida del proceso
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-
-// Mostrar el mensaje de bienvenida
-console.log('Welcome to Holberton School, what is your name?\n');
-
-// Leer la entrada del usuario
-rl.on('line', (input) => {
-  // Mostrar el nombre del usuario
-  console.log(`Your name is: ${input}\r`);
+function StdinName() {
+    process.stdin.setEncoding('utf8');
+    process.stdout.write('Welcome to Holberton School, what is your name?\n');
   
-  // Cerrar la interfaz readline
-  rl.close();
-});
-
-// Evento que se ejecuta cuando la interfaz readline se cierra
-rl.on('close', () => {
-  console.log('This important software is now closing\r');
-  process.exit(0);
-});
+    process.stdin.once('readable', () => {
+      const userInput = process.stdin.read();
+      if (userInput !== null && userInput !== '\n') {
+        process.stdout.write(`Your name is: ${userInput}`);
+      }
+      process.stdin.emit('end');
+    });
+  
+    process.stdin.once('end', () => {
+      process.stdout.write('This important software is now closing\n');
+    });
+  }
+  StdinName();
