@@ -23,7 +23,7 @@ app.get('/students', (req, res) => {
         responseText += `Number of students in ${field}: ${students.length}. List: ${students.join(', ')}\n`;
       }
 
-      res.send(responseText.trim());  // trim() para eliminar el último salto de línea
+      res.send(responseText.trim());
     })
     .catch(() => {
       res.send('This is the list of our students\nCannot load the database');
