@@ -50,14 +50,15 @@ const app = http.createServer((req, res) => {
     const databasePath = process.argv[2];
     countStudents(databasePath)
       .then((result) => {
-        res.write('This is the list of our students\n');
+        let response = 'This is the list of our students\n';
         // Imprimir el número de estudiantes por campo y la lista de nombres
         for (const [field, students] of Object.entries(result.studentsByField)) {
-          res.write(`Number of students in ${field}: ${students.length}. List: ${students.join(', ')}\n`);
+          response += `Number of students in ${field}: ${students.length}. List: ${students.join(', ')}\n`;
         }
-        res.end();
+        res.end(response);
       })
       .catch(() => {
+        res.writeHead(500);
         res.end('Cannot load the database');
       });
   } else {
