@@ -6,7 +6,7 @@ function countStudents(path) {
     const data = fs.readFileSync(path, 'utf8');
 
     // Dividir el contenido en líneas y filtrar las vacías
-    const lines = data.split('\n').filter(line => line.trim() !== '');
+    const lines = data.split('\n').filter((line) => line.trim() !== '');
 
     // Si no hay datos o solo está la cabecera, lanzar un error
     if (lines.length <= 1) {
@@ -21,7 +21,7 @@ function countStudents(path) {
     let totalStudents = 0;
 
     // Procesar cada línea del CSV
-    lines.forEach(line => {
+    lines.forEach((line) => {
       const [firstname, lastname, age, field] = line.split(',');
 
       // Ignorar líneas que no tienen todos los campos
@@ -44,7 +44,6 @@ function countStudents(path) {
     for (const [field, students] of Object.entries(studentsByField)) {
       console.log(`Number of students in ${field}: ${students.length}. List: ${students.join(', ')}`);
     }
-
   } catch (err) {
     // Lanzar el error para que pueda ser capturado en las pruebas
     throw new Error('Cannot load the database');
