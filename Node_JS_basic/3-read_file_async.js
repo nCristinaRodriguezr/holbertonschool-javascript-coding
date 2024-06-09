@@ -8,7 +8,7 @@ function countStudents(path) {
         reject(new Error('Cannot load the database'));
       } else {
         // Dividir el contenido en líneas y filtrar las vacías
-        const lines = data.split('\n').filter(line => line.trim() !== '');
+        const lines = data.split('\n').filter((line) => line.trim() !== '');
 
         // Eliminar la primera línea (cabecera)
         lines.shift();
@@ -18,7 +18,7 @@ function countStudents(path) {
         let totalStudents = 0;
 
         // Procesar cada línea del CSV
-        lines.forEach(line => {
+        lines.forEach((line) => {
           const [firstname, lastname, age, field] = line.split(',');
 
           // Ignorar líneas que no tienen todos los campos
@@ -34,7 +34,7 @@ function countStudents(path) {
         // Construir el resultado
         const result = {
           totalStudents,
-          studentsByField
+          studentsByField,
         };
 
         // Imprimir el número total de estudiantes
