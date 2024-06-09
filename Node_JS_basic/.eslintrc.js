@@ -27,7 +27,7 @@ module.exports = {
       'LabeledStatement',
       'WithStatement',
     ],
-    "indent": ["error", 2]
+    'no-undef': ['error', { 'typeof': false }],
   },
   overrides:[
     {
