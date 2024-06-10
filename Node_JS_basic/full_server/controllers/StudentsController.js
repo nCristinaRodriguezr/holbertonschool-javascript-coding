@@ -18,7 +18,7 @@ class StudentsController {
       console.error('Error:', error); // Log the error for debugging purposes
       res.status(500).send('Cannot load the database');
     }
-  }  
+  }    
 
   static async getAllStudentsByMajor(req, res) {
     const { major } = req.params;
