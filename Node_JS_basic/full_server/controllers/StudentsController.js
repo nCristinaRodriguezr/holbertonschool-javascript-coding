@@ -4,15 +4,16 @@ class StudentsController {
   static async getAllStudents(req, res) {
     try {
       const students = await readDatabase('database.csv');
-      res.status(200).send('This is the list of our students\n');
+      let response = 'This is the list of our students\n';
 
       const sortedFields = Object.keys(students).sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
 
       sortedFields.forEach((field) => {
         const studentNames = students[field].join(', ');
-        res.write(`Number of students in ${field}: ${students[field].length}. List: ${studentNames}\n`);
+        response += `Number of students in ${field}: ${students[field].length}. List: ${studentNames}\n`;
       });
-      res.end();
+
+      res.status(200).send(response);
     } catch (error) {
       res.status(500).send('Cannot load the database');
     }
